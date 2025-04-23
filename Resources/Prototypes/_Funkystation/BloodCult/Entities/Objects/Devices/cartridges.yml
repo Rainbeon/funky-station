@@ -1,0 +1,23 @@
+- type: entity
+  parent: BaseItem
+  id: FineIssuanceCartridge
+  name: Fine issuance cartridge
+  description: A program that allows fines to be printed and given out.
+  components:
+  - type: Sprite
+    sprite: Objects/Devices/cartridge.rsi
+    state: cart-sec
+  - type: Icon
+    sprite: Objects/Devices/cartridge.rsi
+    state: cart-sec
+  - type: UIFragment
+    ui: !type:FineIssuanceUi
+  - type: Cartridge
+    programName: fine-issuance-program-name
+    icon:
+      sprite: Objects/Misc/books.rsi
+      state: icon_magnifier
+  - type: FineIssuanceCartridge
+  - type: Tag
+    tags:
+    - PDACart

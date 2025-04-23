@@ -57,3 +57,18 @@
   - type: GuideHelp
     guides:
     - Forensics
+
+- type: entity
+  parent: ForensicReportPaper
+  id: CitationPaper
+  name: citation
+  description: A citation issued by Security for perceived wrong-doing.
+  components:
+  - type: PaperVisuals
+    backgroundImagePath: "/Textures/Interface/Paper/paper_background_perforated.svg.96dpi.png"
+    headerImagePath: "/Textures/Interface/Paper/paper_heading_citation.png"
+    headerMargin: 0.0, 0.0, 0.0, 4.0
+    backgroundImageTile: true
+    backgroundPatchMargin: 6.0, 0.0, 6.0, 0.0
+    contentMargin: 12.0, 0.0, 6.0, 0.0
+    maxWritableArea: 368.0, 256.0

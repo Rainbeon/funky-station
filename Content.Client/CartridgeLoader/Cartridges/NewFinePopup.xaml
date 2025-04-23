@@ -1,0 +1,52 @@
+<DefaultWindow xmlns="https://spacestation14.io"
+               Title="{Loc fine-issuance-new}"
+               MinSize="300 200">
+    <PanelContainer StyleClasses="AngleRect">
+        <BoxContainer Orientation="Vertical" Margin="4">
+            <!-- Name input -->
+            <BoxContainer Orientation="Vertical" Margin="0 4">
+                <Label Text="{Loc fine-issuance-name-label}"
+                       StyleClasses="LabelHeading" />
+                <PanelContainer StyleClasses="ButtonSquare">
+                    <LineEdit Name="NameInput"
+                              PlaceHolder="{Loc fine-issuance-name-placeholder}" />
+                </PanelContainer>
+            </BoxContainer>
+
+            <!-- Fine input -->
+            <BoxContainer Orientation="Vertical" Margin="0 4">
+                <Label Text="{Loc fine-issuance-amount-label}"
+                       StyleClasses="LabelHeading" />
+                <PanelContainer StyleClasses="ButtonSquare">
+                    <LineEdit Name="AmountInput"
+                              PlaceHolder="{Loc fine-issuance-amount-placeholder}" />
+                </PanelContainer>
+            </BoxContainer>
+
+            <!-- Crime input (optional) -->
+            <BoxContainer Orientation="Vertical" Margin="0 4">
+                <Label Text="{Loc fine-issuance-crime-label}"
+                       StyleClasses="LabelHeading" />
+                <PanelContainer StyleClasses="ButtonSquare">
+                    <LineEdit Name="CrimeInput"
+                              PlaceHolder="{Loc fine-issuance-crime-placeholder}" />
+                </PanelContainer>
+            </BoxContainer>
+
+            <!-- Action buttons -->
+            <BoxContainer Orientation="Horizontal"
+                          HorizontalAlignment="Right"
+                          Margin="0 8 0 0">
+                <Button Name="CancelButton"
+                        Text="{Loc fine-issuance-button-cancel}"
+                        StyleClasses="OpenRight"
+                        MinSize="80 0" />
+                <Button Name="CreateButton"
+                        Text="{Loc fine-issuance-button-print}"
+                        StyleClasses="OpenLeft"
+                        MinSize="80 0"
+                        Disabled="True" />
+            </BoxContainer>
+        </BoxContainer>
+    </PanelContainer>
+</DefaultWindow>
