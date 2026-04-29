@@ -162,6 +162,8 @@
   - type: Damageable
     damageContainer: StructuralInorganic
     damageModifierSet: Metallic
+  - type: DragInsertContainer
+    containerId: ReagentDispenser-storageSlot0
   - type: Destructible
     thresholds:
     - trigger:

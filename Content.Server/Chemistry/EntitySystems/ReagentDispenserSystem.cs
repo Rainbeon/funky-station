@@ -32,9 +32,12 @@ using Content.Server.Chemistry.Containers.EntitySystems;
 using Content.Shared.Chemistry;
 using Content.Shared.Chemistry.Dispenser;
 using Content.Shared.Chemistry.EntitySystems;
+using Content.Shared.Containers;
 using Content.Shared.Containers.ItemSlots;
+using Content.Shared.DragDrop;
 using Content.Shared.FixedPoint;
 using Content.Shared.Nutrition.EntitySystems;
+using Content.Shared.Whitelist;
 using JetBrains.Annotations;
 using Robust.Server.Audio;
 using Robust.Server.GameObjects;
@@ -59,6 +62,8 @@ namespace Content.Server.Chemistry.EntitySystems
         [Dependency] private readonly UserInterfaceSystem _userInterfaceSystem = default!;
         [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
         [Dependency] private readonly OpenableSystem _openable = default!;
+        [Dependency] private readonly EntityWhitelistSystem _entityWhitelist = default!;
+        [Dependency] private readonly DragInsertContainerSystem _dragInsert = default!;
 
         public override void Initialize()
         {
@@ -75,6 +80,8 @@ namespace Content.Server.Chemistry.EntitySystems
             SubscribeLocalEvent<ReagentDispenserComponent, ReagentDispenserClearContainerSolutionMessage>(OnClearContainerSolutionMessage);
 
             SubscribeLocalEvent<ReagentDispenserComponent, MapInitEvent>(OnMapInit, before: new []{typeof(ItemSlotsSystem)});
+            SubscribeLocalEvent<ReagentDispenserComponent, ContainerIsInsertingAttemptEvent>(OnInsertAttempt);
+            SubscribeLocalEvent<ReagentDispenserComponent, DragDropTargetEvent>(OnDragDropOn, after: new []{typeof(DragInsertContainerSystem)});
         }
 
         private void SubscribeUpdateUiState<T>(Entity<ReagentDispenserComponent> ent, ref T ev)
@@ -225,6 +232,28 @@ namespace Content.Server.Chemistry.EntitySystems
             }
 
             _itemSlotsSystem.AddItemSlot(uid, SharedReagentDispenser.OutputSlotName, component.BeakerSlot);
+        }
+
+        //TODO: Make this Shared
+        private void OnInsertAttempt(EntityUid uid, ReagentDispenserComponent component, ContainerIsInsertingAttemptEvent args)
+        {
+            if (!component.StorageSlotIds.Contains(args.Container.ID))
+                return;
+
+            if (args.Cancelled)
+                return;
+
+            if (!_entityWhitelist.IsWhitelistPass(component.StorageWhitelist, args.EntityUid))
+                args.Cancel();
+        }
+
+        private void OnDragDropOn(EntityUid uid, ReagentDispenserComponent component, DragDropTargetEvent args)
+        {
+            if(!TryComp<DragInsertContainerComponent>(uid, out var dragInsert))
+                return;
+            
+            //Not Done
+            _dragInsert.SetNewContainerId((uid, dragInsert), "ReagentDispenser-storageSlot1");
         }
     }
 }

@@ -156,6 +156,11 @@ public sealed partial class DragInsertContainerSystem : EntitySystem
         return true;
     }
 
+    public void SetNewContainerId(Entity<DragInsertContainerComponent> ent, string newId)
+    {
+        ent.Comp.ContainerId = newId;
+    }
+
     [Serializable, NetSerializable]
     public sealed partial class DragInsertContainerDoAfterEvent : SimpleDoAfterEvent
     {
